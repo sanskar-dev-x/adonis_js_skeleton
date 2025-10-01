@@ -14,10 +14,20 @@ const shieldConfig = defineConfig({
   /**
    * Configure CSRF protection options. Refer documentation
    * to learn more
+   * 
+   * What CSRF protection is
+
+    CSRF = Cross-Site Request Forgery
+
+    It’s an attack where a malicious site tricks a logged-in user’s 
+    browser into making a request to your app
+
+    To prevent this, AdonisJS (via @adonisjs/shield) requires 
+    that every POST/PUT/DELETE request includes a valid CSRF token.
    */
   csrf: {
     enabled: true,
-    exceptRoutes: [],
+    exceptRoutes: ['/mail'],
     enableXsrfCookie: false,
     methods: ['POST', 'PUT', 'PATCH', 'DELETE'],
   },
