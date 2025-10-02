@@ -1,6 +1,8 @@
 import { DateTime } from 'luxon'
-import { BaseModel, column } from '@adonisjs/lucid/orm'
+import { BaseModel, column, hasMany } from '@adonisjs/lucid/orm'
 import { DbAccessTokensProvider } from '@adonisjs/auth/access_tokens'
+import Document from './document.js'
+import type { HasMany } from '@adonisjs/lucid/types/relations'
 
 export default class User extends BaseModel {
   @column({ isPrimary: true })
@@ -14,6 +16,9 @@ export default class User extends BaseModel {
 
   @column({ serializeAs: null })
   declare password: string
+
+  @hasMany(() => Document)
+  declare documents: HasMany<typeof Document>
 
   @column.dateTime({ autoCreate: true })
   declare createdAt: DateTime

@@ -10,20 +10,47 @@
 import AuthController from '#controllers/auth_controller'
 import router from '@adonisjs/core/services/router'
 import { middleware } from './kernel.js'
-
-router.on('/').render('pages/home')
-
-router.post('/register', async (ctx) => {
-  return new AuthController().register(ctx)
-})
+import DocumentsController from '#controllers/documents_controller'
 
 router
-  .post('/login', async (ctx) => {
-    return new AuthController().login(ctx)
+  .group(() => {
+    router.post('/register', async (ctx) => {
+      return new AuthController().register(ctx)
+    })
+
+    router.post('/login', async (ctx) => {
+      return new AuthController().login(ctx)
+    })
+
+    router
+      .post('/logout', async (ctx) => {
+        return new AuthController().logout(ctx)
+      })
+      .use(middleware.auth({ guards: ['api'] }))
   })
+  .prefix('auth')
 
 router
-  .post('/logout', async (ctx) => {
-    return new AuthController().logout(ctx)
+  .group(() => {
+    router.post('/upload', async (ctx) => {
+      return new DocumentsController().uploadDocs(ctx)
+    })
+
+    router.delete('/delete/:id', async (ctx) => {
+      return new DocumentsController().deleteDocs(ctx)
+    })
+    
+    router.get('/', async (ctx) => {
+      return new DocumentsController().getDocs(ctx)
+    })
+
+    router.get('/:id', async (ctx) => {
+      return new DocumentsController().getFileDocs(ctx)
+    })
+
+    router.patch('/edit/:id', async (ctx) => {
+      return new DocumentsController().editDocs(ctx)
+    })
   })
+  .prefix('docs')
   .use(middleware.auth({ guards: ['api'] }))

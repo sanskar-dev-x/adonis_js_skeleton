@@ -17,7 +17,7 @@ export default class AuthController {
 
       return response.created({ message: 'User Registration Successfull', user })
     } catch (error) {
-      return response.badRequest({ message: 'User Registration Failed', error: error.message })
+      return response.badRequest({ message: "User Registration Failed" })
     }
   }
 
@@ -31,7 +31,7 @@ export default class AuthController {
 
       return response.created({ message: 'User LoggedIn Successfull', token: token.toJSON() })
     } catch (error) {
-      return response.badRequest({ message: 'User LogIn Failed', error: error.message })
+      return response.badRequest({ message: error.message })
     }
   }
 
@@ -40,7 +40,7 @@ export default class AuthController {
       await auth.check()
       return response.ok({ message: 'User Logged Out' })
     } catch (error) {
-      return response.badRequest({message:"Cannot LogOut User",error:error.messages})
+      return response.badRequest({ message: error.messages })
     }
   }
 }
