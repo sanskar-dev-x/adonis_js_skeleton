@@ -54,7 +54,8 @@ export class DocumentService {
   }
 
   public async getAllDocs() {
-    const docs = await Document.all()
+    const docs = await Document.query().preload('user')
+
 
     if (docs.length === 0) {
       return []
