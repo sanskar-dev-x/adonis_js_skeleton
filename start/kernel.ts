@@ -10,6 +10,7 @@
 
 import router from '@adonisjs/core/services/router'
 import server from '@adonisjs/core/services/server'
+import CorsMiddleware from '#middleware/cors_middleware'
 
 /**
  * The error handler is used to convert an exception
@@ -45,6 +46,5 @@ router.use([
  * the routes or the routes group.
  */
 export const middleware = router.named({
-  auth: () => import('#middleware/auth_middleware'),
-  role: () => import('#middleware/role_middleware'),
+  auth: () => import('#middleware/auth_middleware')
 })

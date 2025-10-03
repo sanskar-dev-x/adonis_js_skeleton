@@ -9,7 +9,6 @@ interface LoginRequest {
 
 interface RegisterRequest extends LoginRequest {
   fullName: string
-  role: 'user' | 'admin'
 }
 
 export class AuthService {
@@ -18,7 +17,6 @@ export class AuthService {
       email: payload.email,
       fullName: payload.fullName,
       password: await hash.make(payload.password),
-      role: payload.role
     })
 
     return user

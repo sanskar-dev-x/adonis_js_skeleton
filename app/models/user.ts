@@ -4,8 +4,6 @@ import { DbAccessTokensProvider } from '@adonisjs/auth/access_tokens'
 import Document from './document.js'
 import type { HasMany } from '@adonisjs/lucid/types/relations'
 
-export type UserRole = 'admin' | 'user'
-
 export default class User extends BaseModel {
   @column({ isPrimary: true })
   declare id: number
@@ -18,9 +16,6 @@ export default class User extends BaseModel {
 
   @column({ serializeAs: null })
   declare password: string
-
-  @column()
-  declare role: UserRole
 
   @hasMany(() => Document)
   declare documents: HasMany<typeof Document>

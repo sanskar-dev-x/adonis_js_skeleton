@@ -53,16 +53,6 @@ export class DocumentService {
     return docs
   }
 
-  public async getAllDocs() {
-    const docs = await Document.all()
-
-    if (docs.length === 0) {
-      return []
-    }
-
-    return docs
-  }
-
   public async getFileDocs(user: User, docId: string) {
     const docs = await Document.query().where('id', docId).where('user_id', user.id).first()
 

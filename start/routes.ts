@@ -39,7 +39,7 @@ router
     router.delete('/delete/:id', async (ctx) => {
       return new DocumentsController().deleteDocs(ctx)
     })
-
+    
     router.get('/', async (ctx) => {
       return new DocumentsController().getDocs(ctx)
     })
@@ -54,15 +54,3 @@ router
   })
   .prefix('docs')
   .use(middleware.auth({ guards: ['api'] }))
-
-router
-  .group(() => {
-    router.post('/getAll', async (ctx) => {
-      return new DocumentsController().getAllDocs(ctx)
-    })
-  })
-  .prefix('admin')
- .use([
-    middleware.auth({ guards: ['api'] }),
-    middleware.role(['admin']),
-  ])

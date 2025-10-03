@@ -27,15 +27,6 @@ export default class DocumentsController {
     }
   }
 
-  public async getAllDocs({ response }: HttpContext) {
-    try {
-      const docs = await this.documentService.getAllDocs()
-      return response.ok({ message: 'Documents Retrieved Successfull', docs })
-    } catch (error) {
-      return response.badRequest({ message: error.message, error: error })
-    }
-  }
- 
   public async getDocs({ response, auth }: HttpContext) {
     try {
       const user = auth.user!
